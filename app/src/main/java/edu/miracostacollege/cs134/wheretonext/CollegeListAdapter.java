@@ -2,14 +2,20 @@ package edu.miracostacollege.cs134.wheretonext;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,9 +76,27 @@ public class CollegeListAdapter extends ArrayAdapter<College>
         TextView collegeListNameTextView = view.findViewById(R.id.collegeListNameTextView);
         RatingBar collegeListRatingBar = view.findViewById(R.id.collegeListRatingBar);
 
+        collegeListNameTextView.setText(selectedCollege.getName());
+        collegeListRatingBar.setRating((float) selectedCollege.getRating());
 
+        // Set up tag for linear layout to be the selected event
+        collegeListLinearLayout.setTag(selectedCollege);
 
+        // Wire up image view
+        ImageView collegeListImageView = view.findViewById(R.id.collegeListImageView);
 
+        AssetManager am = mContext.getAssets();
+
+        try
+        {
+            InputStream stream = am.open(selectedCollege.getImageName());
+            Drawable image = Drawable.createFromStream(stream, selectedCollege.getImageName());
+            collegeListImageView.setImageDrawable(image);
+        }
+        catch (IOException e)
+        {
+            Log.e("Where To Next", "Error inflating image for " + selectedCollege.getName(), e);
+        }
 
         return view;
     }

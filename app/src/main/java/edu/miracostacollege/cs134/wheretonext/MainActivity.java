@@ -1,5 +1,6 @@
 package edu.miracostacollege.cs134.wheretonext;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
          */
 
+
         // TODO:  Fill the collegesList with all Colleges from the database
         try
         {
@@ -48,11 +50,37 @@ public class MainActivity extends AppCompatActivity {
         {
             Log.e("WhereToNext", "Error loading from JSON.", e);
         }
+
         // TODO:  Connect the list adapter with the list
+        collegesListView = findViewById(R.id.collegeListView);
+
+        collegesListAdapter = new CollegeListAdapter(this,R.layout.college_list_item, collegesList);
+
         // TODO:  Set the list view to use the list adapter
+        collegesListView.setAdapter(collegesListAdapter);
+
+
+
     }
 
-    public void viewCollegeDetails(View view) {
+    public void viewCollegeDetails(View view)
+    {
+        // Extract the tag from the view
+        College clickedCollege = (College) view.getTag();
+        System.out.println("TUITION " + clickedCollege.getTuition());
+        System.out.println("RATING " + clickedCollege.getRating());
+
+        // Set up the intent
+        Intent intent = new Intent(this, CollegeDetailsActivity.class);
+
+        // Fill intent with details from the clickedCollege
+        intent.putExtra("Name", clickedCollege.getName());
+        intent.putExtra("Population", clickedCollege.getPopulation());
+        intent.putExtra("Tuition", clickedCollege.getTuition());
+        intent.putExtra("Rating", clickedCollege.getRating());
+        intent.putExtra("ImageName", clickedCollege.getImageName());
+
+        startActivity(intent);
 
         // TODO: Implement the view college details using an Intent
     }

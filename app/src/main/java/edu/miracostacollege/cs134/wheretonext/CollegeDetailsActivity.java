@@ -1,4 +1,4 @@
-package edu.orangecoastcollege.cs273.wheretonext;
+package edu.miracostacollege.cs134.wheretonext;
 
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -31,12 +31,15 @@ public class CollegeDetailsActivity extends AppCompatActivity {
         Intent detailsIntent = getIntent();
         String name = detailsIntent.getStringExtra("Name");
         int population = detailsIntent.getIntExtra("Population", 0);
-        float tuition = detailsIntent.getFloatExtra("Tuition", 0.0f);
-        float rating = detailsIntent.getFloatExtra("Rating", 0.0f);
+        double tuition = detailsIntent.getDoubleExtra("Tuition", 0.0f);
+        double rating = detailsIntent.getDoubleExtra("Rating", 0.0f);
         String imageName = detailsIntent.getStringExtra("ImageName");
 
+        System.out.println("TUITION OTHER SIDE INTENT " + tuition);
+
         AssetManager am = this.getAssets();
-        try {
+        try
+        {
             InputStream stream = am.open(imageName);
             Drawable event = Drawable.createFromStream(stream, name);
             collegeDetailsImageView.setImageDrawable(event);
@@ -52,6 +55,6 @@ public class CollegeDetailsActivity extends AppCompatActivity {
         collegeDetailsNameTextView.setText(name);
         collegeDetailsPopulationTextView.setText("Annual Enrollment: " + thousands.format(population));
         collegeDetailsTuitionTextView.setText("In-state Tuition: " + currency.format(tuition));
-        gameDetailsRatingBar.setRating(rating);
+        gameDetailsRatingBar.setRating((float) rating);
     }
 }

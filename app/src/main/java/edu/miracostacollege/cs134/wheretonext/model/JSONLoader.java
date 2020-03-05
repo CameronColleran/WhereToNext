@@ -27,7 +27,7 @@ public class JSONLoader {
     public static List<College> loadJSONFromAsset(Context context) throws IOException {
         List<College> allCollegesList = new ArrayList<>();
         String json = null;
-        InputStream is = context.getAssets().open("Colleges.json");
+        InputStream is = context.getAssets().open("colleges.json");
         int size = is.available();
         byte[] buffer = new byte[size];
         is.read(buffer);
