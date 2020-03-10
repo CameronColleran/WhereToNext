@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RatingBar;
 
 import java.io.IOException;
 import java.util.List;
@@ -88,6 +90,17 @@ public class MainActivity extends AppCompatActivity {
     public void addCollege(View view) {
 
         // TODO: Implement the code for when the user clicks on the addCollegeButton
+        EditText nameEditText = findViewById(R.id.nameEditText);
+        EditText populationgEditText = findViewById(R.id.populationEditText);
+        EditText tuitionEditText = findViewById(R.id.tuitionEditText);
+        RatingBar collegeRatingBar = findViewById(R.id.collegeRatingBar);
+
+        String name = nameEditText.getText().toString();
+        int population = Integer.parseInt(populationgEditText.getText().toString());
+        float tuition = Float.parseFloat(tuitionEditText.getText().toString());
+        float rating = collegeRatingBar.getRating();
+
+        collegesList.add(new College(name, population, tuition, rating));
     }
 
 }
